@@ -1,6 +1,7 @@
 package org.recap.IT.config;
 
-import org.jetbrains.annotations.NotNull;
+
+import jakarta.validation.constraints.NotNull;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
