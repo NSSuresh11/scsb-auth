@@ -1,7 +1,7 @@
 buildscript {
 	ext {
-		springBootVersion = '3.5.7'
-		set('springCloudVersion', "2025.0.0")
+		springBootVersion = '4.0.2'
+		set('springCloudVersion', "2025.1.0")
 	}
 	repositories {
 		mavenCentral()
@@ -12,7 +12,7 @@ buildscript {
 }
 
 plugins {
-	id 'org.springframework.boot' version '3.5.7'
+	id 'org.springframework.boot' version '4.0.2'
 	id 'io.spring.dependency-management' version '1.1.7'
 	id "org.sonarqube" version "6.3.1.5724"
 }
@@ -44,7 +44,7 @@ repositories {
 }
 
 dependencies {
-	implementation fileTree(dir: '/data/commonjar', include: '*3.0.jar')
+	implementation fileTree(dir: '/data/commonjar', include: '*3.1.jar')
 	implementation fileTree(dir: '/data/commonjar', include: '*base-1.0.jar')
 	implementation("org.springframework:spring-remoting:2.0.8")
 	implementation('org.apache.commons:commons-lang3:3.20.0')
@@ -83,9 +83,10 @@ dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
 	implementation 'org.json:json:20250517'
 	implementation 'com.google.code.gson:gson:2.13.2'
-	testImplementation('org.springframework.boot:spring-boot-starter-test:3.5.7')
+	testImplementation('org.springframework.boot:spring-boot-starter-test:4.0.2')
 
-	implementation('io.springfox:springfox-boot-starter:3.0.0')
+//	implementation('io.springfox:springfox-boot-starter:3.0.0')
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.14'
 	implementation('org.owasp.encoder:encoder:1.4.0')
 }
 

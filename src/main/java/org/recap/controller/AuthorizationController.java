@@ -1,8 +1,9 @@
 package org.recap.controller;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -44,8 +45,9 @@ public class AuthorizationController {
      * @return the boolean
      */
     @PostMapping(value="/search")
-    @ApiOperation(value="search authentication",notes="Used to Authenticate User",consumes = "application/json")
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "search authentication success")})
+    @Operation(summary="search authentication",description="Used to Authenticate User")
+    @ApiResponse(responseCode = "200", description = "search authentication success", content = { @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = Boolean.class)) })
     public boolean searchRecords(HttpServletRequest request, @RequestBody UsernamePasswordToken token) {
         return authorizationService.checkPrivilege(token, userManagementService.getPermissionId(ScsbConstants.SCSB_SEARCH_EXPORT));
     }
@@ -57,8 +59,9 @@ public class AuthorizationController {
      * @return the boolean
      */
     @PostMapping(value="/request")
-    @ApiOperation(value="request authentication",notes="Used to Authenticate User",consumes = "application/json")
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "request authentication success")})
+    @Operation(summary="request authentication",description ="Used to Authenticate User")
+    @ApiResponse(responseCode = "200", description = "request authentication success", content = { @Content(mediaType = "application/json",
+            schema = @Schema(implementation = Boolean.class)) })
     public Boolean request(@RequestBody UsernamePasswordToken token) {
         return authorizationService.checkPrivilege(token,userManagementService.getPermissionId(ScsbConstants.REQUEST_PLACE));
     }
@@ -70,8 +73,9 @@ public class AuthorizationController {
      * @return the boolean
      */
     @PostMapping(value = "/collection")
-    @ApiOperation(value="collection authentication",notes="Used to Authenticate User",consumes = "application/json")
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "collection authentication success")})
+    @Operation(summary="collection authentication",description ="Used to Authenticate User")
+    @ApiResponse(responseCode = "200", description = "collection authentication success", content = { @Content(mediaType = "application/json",
+            schema = @Schema(implementation = Boolean.class)) })
     public Boolean collection(@RequestBody UsernamePasswordToken token) {
         return authorizationService.checkPrivilege(token, userManagementService.getPermissionId(ScsbConstants.WRITE_GCD));
 
@@ -84,8 +88,9 @@ public class AuthorizationController {
      * @return the boolean
      */
     @PostMapping(value="/reports")
-    @ApiOperation(value="reports authentication",notes="Used to Authenticate User",consumes = "application/json")
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "reports authentication success")})
+    @Operation(summary="reports authentication",description ="Used to Authenticate User")
+    @ApiResponse(responseCode = "200", description = "reports authentication success", content = { @Content(mediaType = "application/json",
+            schema = @Schema(implementation = Boolean.class)) })
     public boolean reports(@RequestBody UsernamePasswordToken usernamePasswordToken) {
         return authorizationService.checkPrivilege(usernamePasswordToken,userManagementService.getPermissionId(ScsbConstants.VIEW_PRINT_REPORTS));
 
@@ -98,8 +103,9 @@ public class AuthorizationController {
      * @return the boolean
      */
     @PostMapping(value="/userRoles")
-    @ApiOperation(value="user authentication",notes="Used to Authorizer User for Users",consumes = "application/json")
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "User & Role authentication success")})
+    @Operation(summary="user authentication",description ="Used to Authorizer User for Users")
+    @ApiResponse(responseCode = "200", description = "User & Role authentication success", content = { @Content(mediaType = "application/json",
+            schema = @Schema(implementation = Boolean.class)) })
     public boolean userRoles(@RequestBody UsernamePasswordToken usernamePasswordToken) {
         return authorizationService.checkPrivilege(usernamePasswordToken,userManagementService.getPermissionId(ScsbConstants.CREATE_USER));
 
@@ -112,8 +118,9 @@ public class AuthorizationController {
      * @return the boolean
      */
     @PostMapping(value="/roles")
-    @ApiOperation(value="roles authentication",notes="Used to Authorizer User for Roles",consumes = "application/json")
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "Role authentication success")})
+    @Operation(summary="roles authentication",description ="Used to Authorizer User for Roles")
+    @ApiResponse(responseCode = "200", description = "Role authentication success", content = { @Content(mediaType = "application/json",
+            schema = @Schema(implementation = Boolean.class)) })
     public boolean roles(@RequestBody UsernamePasswordToken usernamePasswordToken) {
         Subject subject = SecurityUtils.getSubject();
         subject.login(usernamePasswordToken);
@@ -128,8 +135,9 @@ public class AuthorizationController {
      * @return the boolean
      */
     @PostMapping(value="/touchExistingSession")
-    @ApiOperation(value="touch existing session",notes="Used to touch existing session for the user",consumes = "application/json")
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "Successfully extended the session")})
+    @Operation(summary="touch existing session",description ="Used to touch existing session for the user")
+    @ApiResponse(responseCode = "200", description = "Successfully extended the session", content = { @Content(mediaType = "application/json",
+            schema = @Schema(implementation = Boolean.class)) })
     public boolean touchExistingSession(@RequestBody UsernamePasswordToken usernamePasswordToken) {
         Subject subject = authorizationService.getSubject(usernamePasswordToken);
         try {

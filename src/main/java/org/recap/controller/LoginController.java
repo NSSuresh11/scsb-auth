@@ -1,9 +1,10 @@
 package org.recap.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -39,7 +40,7 @@ import java.util.*;
 @Slf4j
 @RestController
 @RequestMapping(value = "/userAuth")
-@Api(value = "userAuth")
+@Tag(name = "userAuth")
 public class LoginController {
 
 
@@ -93,8 +94,9 @@ public class LoginController {
      * @return the map of the authorization values
      */
     @PostMapping(value = "/authService")
-    @ApiOperation(value = "authService", notes = "Used to Authenticate User", consumes = "application/json")
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "Session created successfully")})
+    @Operation(summary = "authService", description = "Used to Authenticate User")
+    @ApiResponse(responseCode = "200", description = "Session created successfully", content = { @Content(mediaType = "application/json",
+            schema = @Schema(implementation = Map.class)) })
     public Map<String, Object> createSession(@RequestBody UsernamePasswordToken token, HttpServletRequest request, BindingResult error) {
         SimpleAuthorizationRealm simpleAuthorizationRealm = new SimpleAuthorizationRealm(authorizationService, authenticationService);
         UserForm userForm = new UserForm();
