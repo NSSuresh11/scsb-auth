@@ -1,7 +1,7 @@
 package org.recap.model;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.HashSet;
@@ -10,20 +10,20 @@ import java.util.Set;
 /**
  * Created by dharmendrag on 29/11/16.
  */
-@ApiModel(value="userAuthRequest",description = "Model to show user details")
+@Schema(name="userAuthRequest",description = "Model to show user details")
 @Data
 public class UserForm {
 
-    @ApiModelProperty(name="userId",value="primary key against each user",position = 0)
+    @Schema(name="userId",description="primary key against each user",maxLength = 0)
     private Integer userId;
 
-    @ApiModelProperty(name="username",value="Login Id or login name",position = 1)
+    @Schema(name="username",description="Login Id or login name",maxLength = 1)
     private String username;
 
-    @ApiModelProperty(name="password",value="password for login",position = 2)
+    @Schema(name="password",description="password for login",maxLength = 2)
     private String password;
 
-    @ApiModelProperty(name="institution",value="User's Institution",position = 3 , allowableValues = "1,2,3")
+    @Schema(name="institution",description="User's Institution",maxLength = 3 , allowableValues = "1,2,3")
     private int institution;
 
     private String userInstitution;
