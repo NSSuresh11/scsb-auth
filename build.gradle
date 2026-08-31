@@ -68,8 +68,12 @@ dependencies {
 	testAnnotationProcessor('org.projectlombok:lombok:1.18.42')
 	implementation 'io.zipkin.brave:brave:6.3.0'
 	implementation 'javax.servlet:javax.servlet-api:4.0.1'
+    implementation('org.apache.tomcat.embed:tomcat-embed-core:11.0.25')
+    implementation('org.apache.tomcat.embed:tomcat-embed-el:11.0.25')
+    implementation('org.apache.tomcat.embed:tomcat-embed-websocket:11.0.25')
+    implementation('org.apache.tomcat:tomcat-annotations-api:11.0.25')
 
-	implementation 'com.mysql:mysql-connector-j:9.1.0'
+    implementation 'com.mysql:mysql-connector-j:9.1.0'
 
 	testImplementation 'org.mockito:mockito-core:5.5.0'
 	testImplementation 'org.mockito:mockito-inline:5.2.0'
