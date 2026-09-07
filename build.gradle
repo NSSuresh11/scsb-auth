@@ -45,7 +45,7 @@ repositories {
 
 dependencies {
 	implementation fileTree(dir: '/data/commonjar', include: '*3.2.jar')
-	//implementation fileTree(dir: '/data/commonjar', include: '*base-1.0.jar')
+	implementation fileTree(dir: '/data/commonjar', include: '*base-1.0.jar')
 	implementation("org.springframework:spring-remoting:2.0.8")
 	implementation('org.apache.commons:commons-lang3:3.20.0')
 
@@ -68,12 +68,8 @@ dependencies {
 	testAnnotationProcessor('org.projectlombok:lombok:1.18.46')
 	implementation 'io.zipkin.brave:brave:6.3.1'
 	implementation 'javax.servlet:javax.servlet-api:4.0.1'
-    implementation('org.apache.shiro:shiro-core:3.0.1')
-    implementation('org.apache.shiro:shiro-spring:3.0.1')
-    implementation('org.apache.shiro:shiro-web:3.0.1')
 
-
-    implementation 'com.mysql:mysql-connector-j:9.1.0'
+	implementation 'com.mysql:mysql-connector-j:9.1.0'
 
 	testImplementation 'org.mockito:mockito-core:5.5.0'
 	testImplementation 'org.mockito:mockito-inline:5.2.0'
