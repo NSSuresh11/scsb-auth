@@ -2,17 +2,16 @@ package org.recap.IT.config;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.recap.IT.BaseTestCase;
 import org.recap.config.SwaggerInterceptor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Created by hemalathas on 25/1/17.
@@ -25,7 +24,7 @@ public class SwaggerInterceptorIT extends BaseTestCase {
     @Mock
     HttpServletRequest httpServletRequest;
 
-    @Autowired
+    @Mock
     private HttpServletResponse httpServletResponse;
 
     @Test
@@ -54,12 +53,14 @@ public class SwaggerInterceptorIT extends BaseTestCase {
     @Test
     public void postHandle() throws Exception {
         Object handler = new Object();
+        swaggerInterceptor = new SwaggerInterceptor();
         swaggerInterceptor.postHandle(httpServletRequest, httpServletResponse, handler, new ModelAndView());
     }
 
     @Test
     public void afterCompletion() throws Exception {
         Object handler = new Object();
+        swaggerInterceptor = new SwaggerInterceptor();
         swaggerInterceptor.afterCompletion(httpServletRequest, httpServletResponse, handler, new Exception());
     }
 

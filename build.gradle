@@ -71,23 +71,19 @@ dependencies {
 
 	implementation 'com.mysql:mysql-connector-j:9.1.0'
 
-	testImplementation 'org.mockito:mockito-core:5.5.0'
-	testImplementation 'org.mockito:mockito-inline:5.2.0'
-	testImplementation 'org.powermock:powermock-api-mockito2:2.0.9'
-	testImplementation 'org.powermock:powermock-module-junit4:2.0.9'
-
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-
 
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'
 	implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
 	implementation 'org.json:json:20250517'
 	implementation 'com.google.code.gson:gson:2.13.2'
-	testImplementation('org.springframework.boot:spring-boot-starter-test:4.0.2')
 
-//	implementation('io.springfox:springfox-boot-starter:3.0.0')
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.14'
 	implementation('org.owasp.encoder:encoder:1.4.0')
+
+	testImplementation 'org.mockito:mockito-core:5.23.0'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:6.1.0'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:4.0.2'
 }
 
 configurations.all {
@@ -105,6 +101,7 @@ dependencyManagement {
 }
 
 test {
+	useJUnitPlatform()
 	finalizedBy jacocoTestReport // report is always generated after tests run
 	jvmArgs "--add-opens", "java.base/java.lang=ALL-UNNAMED"
 	jvmArgs "--add-opens", "java.base/java.util=ALL-UNNAMED"

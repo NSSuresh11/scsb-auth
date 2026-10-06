@@ -2,7 +2,7 @@ package org.recap.IT.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.recap.IT.BaseTestCase;
 import org.recap.model.jpa.PermissionEntity;
 import org.recap.repository.jpa.PermissionsRepository;
@@ -10,8 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 /**
  * Created by dharmendrag on 1/2/17.

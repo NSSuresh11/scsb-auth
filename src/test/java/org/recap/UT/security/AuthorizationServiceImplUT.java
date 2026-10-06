@@ -5,7 +5,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -21,7 +21,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.*;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Created by dharmendrag on 1/2/17.

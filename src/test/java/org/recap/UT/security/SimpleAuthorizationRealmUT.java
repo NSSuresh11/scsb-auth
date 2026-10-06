@@ -6,29 +6,30 @@ import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.recap.model.UserForm;
 import org.recap.security.AuthenticationService;
 import org.recap.security.AuthorizationService;
 import org.recap.security.realm.SimpleAuthorizationRealm;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 /**
  * @author Charan Raj C created on 03/10/24
  */
-@RunWith(MockitoJUnitRunner.Silent.class)
+@ExtendWith({SpringExtension.class, MockitoExtension.class})
 public class SimpleAuthorizationRealmUT {
 
     @InjectMocks
@@ -46,7 +47,7 @@ public class SimpleAuthorizationRealmUT {
     @Mock
     AuthenticationToken authToken;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
     }
@@ -58,7 +59,8 @@ public class SimpleAuthorizationRealmUT {
         when(principals.fromRealm(anyString())).thenReturn(List.of(loginId));
         when(authorizationService.doAuthorizationInfo(any(SimpleAuthorizationInfo.class), eq(loginId)))
                 .thenReturn(authorizationInfo);
-      ReflectionTestUtils.invokeMethod(realm, "doGetAuthorizationInfo", principals);
+        Object result = ReflectionTestUtils.invokeMethod(realm, "doGetAuthorizationInfo", principals);
+        assertNotNull(result);
     }
 
     @Test
@@ -89,9 +91,8 @@ public class SimpleAuthorizationRealmUT {
     @Test
     public void doGetAuthenticationInfoException() {
         AuthenticationToken token = null;
-        when(authenticationService.doAuthentication(any(UsernamePasswordToken.class)))
-                .thenReturn(null);
         AuthenticationInfo result = ReflectionTestUtils.invokeMethod(realm, "doGetAuthenticationInfo", token);
+        assertNull(result);
     }
 
 

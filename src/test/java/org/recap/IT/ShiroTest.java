@@ -5,7 +5,7 @@ import jakarta.persistence.PersistenceContext;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.subject.support.DefaultWebSubjectContext;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.recap.PropertyKeyConstants;
 import org.recap.model.jpa.PermissionEntity;
 import org.recap.model.jpa.RoleEntity;
@@ -17,7 +17,8 @@ import org.springframework.beans.factory.annotation.Value;
 
 import java.util.*;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 /**
  * Created by peris on 1/5/17.

@@ -10,8 +10,8 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.apache.shiro.web.subject.support.DefaultWebSubjectContext;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.recap.UT.BaseTestCaseUT;
@@ -19,8 +19,8 @@ import org.recap.config.ApacheShiroCustomConfig;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.ui.Model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ApacheShiroCustomConfigUT extends BaseTestCaseUT {
 
@@ -35,7 +35,7 @@ public class ApacheShiroCustomConfigUT extends BaseTestCaseUT {
 
     private String sessionTimeOut = "2700000";
 
-    @Before
+    @BeforeEach
     public void setUp() {
         ReflectionTestUtils.setField(apacheShiroCustomConfig, "sessionTimeOut", sessionTimeOut);
     }
@@ -50,7 +50,7 @@ public class ApacheShiroCustomConfigUT extends BaseTestCaseUT {
     public void handleException() {
         String error = apacheShiroCustomConfig.handleException(authorizationException, model);
         assertNotNull(error);
-        assertEquals("Error", "error", error);
+        assertEquals("error", error);
     }
 
     @Test

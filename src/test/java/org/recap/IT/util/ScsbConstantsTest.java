@@ -1,14 +1,15 @@
 package org.recap.IT.util;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.recap.ScsbConstants;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(MockitoJUnitRunner.Silent.class)
+
+@ExtendWith({SpringExtension.class})
 public class ScsbConstantsTest {
 
     @InjectMocks

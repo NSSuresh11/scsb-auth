@@ -6,8 +6,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.subject.support.DefaultWebSubjectContext;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.recap.IT.BaseTestCase;
 import org.recap.model.jpa.PermissionEntity;
@@ -23,8 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Created by dharmendrag on 1/2/17.
@@ -62,7 +61,7 @@ public class AuthorizationServiceImplIT extends BaseTestCase {
     Map<Integer, String> permissionMap = null;
 
 
-    @Ignore
+    @Test
     public void setSubject() {
         UsersEntity usersEntity = new UsersEntity();
         usersEntity.setLoginId("SupportSuperAdmin:PUL");

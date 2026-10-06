@@ -2,19 +2,18 @@ package org.recap.UT.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.subject.support.DefaultWebSubjectContext;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.*;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 import org.recap.PropertyKeyConstants;
 import org.recap.ScsbConstants;
 import org.recap.UT.BaseTestCaseUT;
@@ -31,17 +30,18 @@ import org.recap.security.UserManagementService;
 import org.recap.security.UserService;
 import org.recap.util.HelperUtil;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.validation.BindingResult;
 
 import java.util.*;
 
-import static junit.framework.TestCase.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Created by dharmendrag on 6/2/17.
  */
-@RunWith(MockitoJUnitRunner.Silent.class)
-@PrepareForTest(SecurityUtils.class)
+@ExtendWith({SpringExtension.class})
+
 public class LoginControllerUT extends BaseTestCaseUT {
 
     @InjectMocks
@@ -94,9 +94,9 @@ public class LoginControllerUT extends BaseTestCaseUT {
 
     UsernamePasswordToken usernamePasswordToken = null;
 
-    @Before
+    @BeforeEach
     public void setup() {
-        MockitoAnnotations.initMocks(this);
+        // MockitoExtension will automatically initialize mocks
     }
 
     @Test
@@ -114,6 +114,7 @@ public class LoginControllerUT extends BaseTestCaseUT {
         userForm.setPasswordMatcher(true);
         InstitutionEntity institutionEntity = new InstitutionEntity();
         institutionEntity.setId(4);
+        institutionEntity.setInstitutionCode(supportInstitution);
         List<Integer> roleId = new ArrayList<>();
         roleId.add(2);
         UsersEntity usersEntity = new UsersEntity();
@@ -121,33 +122,36 @@ public class LoginControllerUT extends BaseTestCaseUT {
         usersEntity.setInstitutionEntity(institutionEntity);
         Object userId = 9;
 
-        String values[] = userManagementService.userAndInstitution(usernamePasswordToken.getUsername());
-        Mockito.when(helperUtil.getInstitutionIdByCode(values[1])).thenReturn(institutionEntity);
-        try (MockedStatic<SecurityUtils> mockedStatic = Mockito.mockStatic(SecurityUtils.class)) {
-            mockedStatic.when(SecurityUtils::getSubject).thenReturn(subject);
-        Mockito.doNothing().when(subject).login(usernamePasswordToken);
+        try (MockedStatic<UserManagementService> mockedUserService = Mockito.mockStatic(UserManagementService.class);
+             MockedStatic<SecurityUtils> mockedStatic = Mockito.mockStatic(SecurityUtils.class)) {
+            String[] values = new String[]{"testuser", supportInstitution};
+            mockedUserService.when(() -> UserManagementService.userAndInstitution(usernamePasswordToken.getUsername())).thenReturn(values);
 
-        Mockito.when(subject.getPrincipal()).thenReturn(userId);
-        Mockito.when(subject.getSession()).thenReturn(session);
-        Mockito.when(subject.isAuthenticated()).thenReturn(true);
-        Mockito.doNothing().when(authorizationService).setSubject(usernamePasswordToken, subject);
-        Mockito.when(userService.getPermissions()).thenReturn(permissionMap);
-        Mockito.when(userDetailsRepository.findById(9)).thenReturn(Optional.of(usersEntity));
-        Mockito.when(userManagementService.getRolesForUser((Integer) subject.getPrincipal())).thenReturn(roleId);
-        Mockito.when(userManagementService.getPermissionId(ScsbConstants.BARCODE_RESTRICTED)).thenReturn(1);
-        Mockito.when(userManagementService.getPermissionId(ScsbConstants.REQUEST_PLACE)).thenReturn(1);
-        Mockito.when(userManagementService.getPermissionId(ScsbConstants.WRITE_GCD)).thenReturn(2);
-        Mockito.when(userManagementService.getPermissionId(ScsbConstants.VIEW_PRINT_REPORTS)).thenReturn(3);
-        Mockito.when(userManagementService.getPermissionId(ScsbConstants.SCSB_SEARCH_EXPORT)).thenReturn(4);
-        Mockito.when(userManagementService.getPermissionId(ScsbConstants.CREATE_USER)).thenReturn(5);
-        Mockito.when(userManagementService.getPermissionId(ScsbConstants.REQUEST_PLACE_ALL)).thenReturn(6);
-        Mockito.when(userManagementService.getPermissionId(ScsbConstants.REQUEST_ITEMS)).thenReturn(7);
-        Mockito.when(userManagementService.getPermissionId(ScsbConstants.BARCODE_RESTRICTED)).thenReturn(8);
-        Mockito.when(userManagementService.getPermissionId(ScsbConstants.DEACCESSION)).thenReturn(9);
-        Mockito.when(userManagementService.getPermissionId(ScsbConstants.BULK_REQUEST)).thenReturn(10);
-        Mockito.when(userManagementService.getPermissionId(ScsbConstants.RESUBMIT_REQUEST)).thenReturn(11);
-        Map<String, Object> map = loginController.createSession(usernamePasswordToken, httpServletRequest, bindingResult);
-        assertNotNull(map);}
+            Mockito.when(helperUtil.getInstitutionIdByCode(values[1])).thenReturn(institutionEntity);
+            mockedStatic.when(SecurityUtils::getSubject).thenReturn(subject);
+            Mockito.doNothing().when(subject).login(usernamePasswordToken);
+
+            Mockito.when(subject.getPrincipal()).thenReturn(userId);
+            Mockito.when(subject.getSession()).thenReturn(session);
+            Mockito.when(subject.isAuthenticated()).thenReturn(true);
+            Mockito.doNothing().when(authorizationService).setSubject(usernamePasswordToken, subject);
+            Mockito.when(userService.getPermissions()).thenReturn(permissionMap);
+            Mockito.when(userDetailsRepository.findById(9)).thenReturn(Optional.of(usersEntity));
+            Mockito.when(userManagementService.getRolesListForUser((Integer) subject.getPrincipal())).thenReturn(List.of(ScsbConstants.SUPER_ADMIN_ROLE));
+            Mockito.when(userManagementService.getPermissionId(ScsbConstants.BARCODE_RESTRICTED)).thenReturn(1);
+            Mockito.when(userManagementService.getPermissionId(ScsbConstants.REQUEST_PLACE)).thenReturn(1);
+            Mockito.when(userManagementService.getPermissionId(ScsbConstants.WRITE_GCD)).thenReturn(2);
+            Mockito.when(userManagementService.getPermissionId(ScsbConstants.VIEW_PRINT_REPORTS)).thenReturn(3);
+            Mockito.when(userManagementService.getPermissionId(ScsbConstants.SCSB_SEARCH_EXPORT)).thenReturn(4);
+            Mockito.when(userManagementService.getPermissionId(ScsbConstants.CREATE_USER)).thenReturn(5);
+            Mockito.when(userManagementService.getPermissionId(ScsbConstants.REQUEST_PLACE_ALL)).thenReturn(6);
+            Mockito.when(userManagementService.getPermissionId(ScsbConstants.REQUEST_ITEMS)).thenReturn(7);
+            Mockito.when(userManagementService.getPermissionId(ScsbConstants.DEACCESSION)).thenReturn(9);
+            Mockito.when(userManagementService.getPermissionId(ScsbConstants.BULK_REQUEST)).thenReturn(10);
+            Mockito.when(userManagementService.getPermissionId(ScsbConstants.RESUBMIT_REQUEST)).thenReturn(11);
+            Map<String, Object> map = loginController.createSession(usernamePasswordToken, httpServletRequest, bindingResult);
+            assertNotNull(map);
+        }
     }
 
     private Map<Integer, String> getPermissionMap() {
@@ -180,6 +184,7 @@ public class LoginControllerUT extends BaseTestCaseUT {
         userForm.setPasswordMatcher(true);
         InstitutionEntity institutionEntity = new InstitutionEntity();
         institutionEntity.setId(2);
+        institutionEntity.setInstitutionCode("CUL");
         List<Integer> roleId = new ArrayList<>();
         roleId.add(2);
         UsersEntity usersEntity = new UsersEntity();
@@ -187,14 +192,20 @@ public class LoginControllerUT extends BaseTestCaseUT {
         usersEntity.setInstitutionEntity(institutionEntity);
         Object userId = 9;
 
-        String values[] = userManagementService.userAndInstitution(usernamePasswordToken.getUsername());
-        Mockito.when(helperUtil.getInstitutionIdByCode(values[1])).thenReturn(institutionEntity);
-        Mockito.doNothing().when(subject).login(usernamePasswordToken);
-        Mockito.when(subject.getPrincipal()).thenReturn(userId);
-        Mockito.when(subject.getSession()).thenReturn(session);
-        Mockito.when(subject.isAuthenticated()).thenReturn(false);
-        Map<String, Object> map = loginController.createSession(usernamePasswordToken, httpServletRequest, bindingResult);
-        assertNotNull(map);
+        try (MockedStatic<UserManagementService> mockedUserService = Mockito.mockStatic(UserManagementService.class);
+             MockedStatic<SecurityUtils> mockedStatic = Mockito.mockStatic(SecurityUtils.class)) {
+            String[] values = new String[]{"testuser", "CUL"};
+            mockedUserService.when(() -> UserManagementService.userAndInstitution(usernamePasswordToken.getUsername())).thenReturn(values);
+
+            Mockito.when(helperUtil.getInstitutionIdByCode(values[1])).thenReturn(institutionEntity);
+            mockedStatic.when(SecurityUtils::getSubject).thenReturn(subject);
+            Mockito.doNothing().when(subject).login(usernamePasswordToken);
+            Mockito.when(subject.getPrincipal()).thenReturn(userId);
+            Mockito.when(subject.getSession()).thenReturn(session);
+            Mockito.when(subject.isAuthenticated()).thenReturn(false);
+            Map<String, Object> map = loginController.createSession(usernamePasswordToken, httpServletRequest, bindingResult);
+            assertNotNull(map);
+        }
     }
 
     @Test
@@ -211,6 +222,7 @@ public class LoginControllerUT extends BaseTestCaseUT {
         userForm.setPasswordMatcher(true);
         InstitutionEntity institutionEntity = new InstitutionEntity();
         institutionEntity.setId(2);
+        institutionEntity.setInstitutionCode("CUL");
         List<Integer> roleId = new ArrayList<>();
         roleId.add(2);
         UsersEntity usersEntity = new UsersEntity();
@@ -218,18 +230,21 @@ public class LoginControllerUT extends BaseTestCaseUT {
         usersEntity.setInstitutionEntity(institutionEntity);
         Object userId = 9;
 
-        String values[] = userManagementService.userAndInstitution(usernamePasswordToken.getUsername());
-        Mockito.when(helperUtil.getInstitutionIdByCode(values[1])).thenReturn(institutionEntity);
-        Mockito.doNothing().when(subject).login(usernamePasswordToken);
+        try (MockedStatic<UserManagementService> mockedUserService = Mockito.mockStatic(UserManagementService.class)) {
+            String[] values = new String[]{"testuser", "CUL"};
+            mockedUserService.when(() -> UserManagementService.userAndInstitution(usernamePasswordToken.getUsername())).thenReturn(values);
 
-        Mockito.when(subject.getPrincipal()).thenReturn(userId);
-        Mockito.when(subject.getSession()).thenReturn(session);
-        Mockito.when(subject.isAuthenticated()).thenReturn(true);
-        Mockito.doNothing().when(authorizationService).setSubject(usernamePasswordToken, subject);
-        Mockito.when(userService.getPermissions()).thenReturn(permissionMap);
-        Mockito.when(userDetailsRepository.findById(9)).thenReturn(Optional.of(usersEntity));
-        Map<String, Object> map = loginController.createSession(usernamePasswordToken, httpServletRequest, bindingResult);
-        assertNotNull(map);
+            Mockito.when(helperUtil.getInstitutionIdByCode(values[1])).thenReturn(institutionEntity);
+            Mockito.doNothing().when(subject).login(usernamePasswordToken);
+            Mockito.when(subject.getPrincipal()).thenReturn(userId);
+            Mockito.when(subject.getSession()).thenReturn(session);
+            Mockito.when(subject.isAuthenticated()).thenReturn(true);
+            Mockito.doNothing().when(authorizationService).setSubject(usernamePasswordToken, subject);
+            Mockito.when(userService.getPermissions()).thenReturn(permissionMap);
+            Mockito.when(userDetailsRepository.findById(9)).thenReturn(Optional.of(usersEntity));
+            Map<String, Object> map = loginController.createSession(usernamePasswordToken, httpServletRequest, bindingResult);
+            assertNotNull(map);
+        }
     }
 
     @Test
@@ -262,6 +277,7 @@ public class LoginControllerUT extends BaseTestCaseUT {
         userForm.setPasswordMatcher(true);
         InstitutionEntity institutionEntity = new InstitutionEntity();
         institutionEntity.setId(2);
+        institutionEntity.setInstitutionCode("CUL");
         List<Integer> roleId = new ArrayList<>();
         roleId.add(2);
         UsersEntity usersEntity = new UsersEntity();
@@ -269,11 +285,17 @@ public class LoginControllerUT extends BaseTestCaseUT {
         usersEntity.setInstitutionEntity(institutionEntity);
         Object userId = 9;
 
-        String values[] = userManagementService.userAndInstitution(usernamePasswordToken.getUsername());
-        Mockito.when(helperUtil.getInstitutionIdByCode(values[1])).thenReturn(institutionEntity);
-        Mockito.doThrow(new UnknownAccountException()).when(subject).login(usernamePasswordToken);
-        Map<String, Object> map = loginController.createSession(usernamePasswordToken, httpServletRequest, bindingResult);
-        assertNotNull(map);
+        try (MockedStatic<UserManagementService> mockedUserService = Mockito.mockStatic(UserManagementService.class);
+             MockedStatic<SecurityUtils> mockedStatic = Mockito.mockStatic(SecurityUtils.class)) {
+            String[] values = new String[]{"testuser", "CUL"};
+            mockedUserService.when(() -> UserManagementService.userAndInstitution(usernamePasswordToken.getUsername())).thenReturn(values);
+
+            Mockito.when(helperUtil.getInstitutionIdByCode(values[1])).thenReturn(institutionEntity);
+            mockedStatic.when(SecurityUtils::getSubject).thenReturn(subject);
+            Mockito.doThrow(new UnknownAccountException()).when(subject).login(usernamePasswordToken);
+            Map<String, Object> map = loginController.createSession(usernamePasswordToken, httpServletRequest, bindingResult);
+            assertNotNull(map);
+        }
     }
 
     @Test

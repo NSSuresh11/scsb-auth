@@ -2,24 +2,17 @@ package org.recap.IT.config;
 
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.subject.Subject;
-import org.junit.Test;
-import org.mockito.Mock;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.recap.IT.BaseTestCase;
 import org.recap.config.ApacheShiroCustomConfig;
 import org.springframework.ui.Model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 public class ApacheShiroCustomConfigIT extends BaseTestCase {
-
-    @Mock
-    Model model;
-    @Mock
-    AuthorizationException authorizationException;
-    @Mock
-    ApacheShiroCustomConfig apacheShiroCustomConfig;
 
     @Test
     public void subject() {
@@ -29,16 +22,18 @@ public class ApacheShiroCustomConfigIT extends BaseTestCase {
 
     @Test
     public void subjectException() {
-        Mockito.doCallRealMethod().when(apacheShiroCustomConfig).subject();
+        ApacheShiroCustomConfig apacheShiroCustomConfig = new ApacheShiroCustomConfig();
         Subject subject = apacheShiroCustomConfig.subject();
     }
 
     @Test
     public void handleException() {
         ApacheShiroCustomConfig apacheShiroCustomConfig = new ApacheShiroCustomConfig();
-        String error = apacheShiroCustomConfig.handleException(authorizationException, model);
+        AuthorizationException exception = new AuthorizationException("Test");
+        Model model = Mockito.mock(Model.class);
+        String error = apacheShiroCustomConfig.handleException(exception, model);
         assertNotNull(error);
-        assertEquals("Error", "error", error);
+        assertEquals("error", error);
     }
 
 }

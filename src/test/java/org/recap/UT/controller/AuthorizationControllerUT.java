@@ -5,12 +5,11 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.InvalidSessionException;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.recap.ScsbConstants;
 import org.recap.UT.BaseTestCaseUT;
 import org.recap.controller.AuthorizationController;
@@ -19,17 +18,18 @@ import org.recap.model.jpa.RoleEntity;
 import org.recap.model.jpa.UsersEntity;
 import org.recap.security.AuthorizationServiceImpl;
 import org.recap.security.UserManagementService;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.*;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
 /**
  * Created by dharmendrag on 6/2/17.
  */
-@RunWith(MockitoJUnitRunner.Silent.class)
+@ExtendWith({SpringExtension.class})
 public class AuthorizationControllerUT extends BaseTestCaseUT {
 
 

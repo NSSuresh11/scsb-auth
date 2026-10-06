@@ -2,9 +2,8 @@ package org.recap.IT.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.recap.IT.BaseTestCase;
 import org.recap.model.jpa.PermissionEntity;
 import org.recap.model.jpa.RoleEntity;
@@ -12,17 +11,18 @@ import org.recap.model.jpa.UsersEntity;
 import org.recap.repository.jpa.PermissionsRepository;
 import org.recap.repository.jpa.RolesDetailsRepositorty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Created by hemalathas on 22/12/16.
  */
-@RunWith(MockitoJUnitRunner.Silent.class)
+@ExtendWith({SpringExtension.class})
 public class RolesDetailsRepositortyIT extends BaseTestCase {
 
     @Autowired

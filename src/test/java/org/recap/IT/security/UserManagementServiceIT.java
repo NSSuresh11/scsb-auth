@@ -1,23 +1,23 @@
 package org.recap.IT.security;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.recap.IT.BaseTestCase;
 import org.recap.model.UserForm;
 import org.recap.model.jpa.InstitutionEntity;
 import org.recap.model.jpa.UsersEntity;
 import org.recap.security.UserManagementService;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
-@RunWith(MockitoJUnitRunner.Silent.class)
+@ExtendWith({SpringExtension.class})
 public class UserManagementServiceIT extends BaseTestCase {
 
     @InjectMocks

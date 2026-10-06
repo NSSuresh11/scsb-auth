@@ -1,13 +1,14 @@
 package org.recap.IT.util;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.recap.IT.BaseTestCase;
 import org.recap.model.jpa.InstitutionEntity;
 import org.recap.repository.jpa.InstitutionDetailsRepository;
 import org.recap.util.HelperUtil;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 
 public class HelperUtilIT extends BaseTestCase {
 

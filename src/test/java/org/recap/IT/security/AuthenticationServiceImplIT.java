@@ -3,7 +3,7 @@ package org.recap.IT.security;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.recap.IT.BaseTestCase;
 import org.recap.ScsbConstants;
 import org.recap.model.UserForm;
@@ -19,7 +19,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 /**
  * Created by dharmendrag on 1/2/17.

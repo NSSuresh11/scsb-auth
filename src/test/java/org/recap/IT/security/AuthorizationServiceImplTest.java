@@ -3,8 +3,8 @@ package org.recap.IT.security;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.*;
 import org.recap.ScsbConstants;
 import org.recap.security.AuthorizationServiceImpl;
@@ -13,8 +13,8 @@ import org.recap.security.UserManagementService;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 /**
@@ -28,7 +28,7 @@ public class AuthorizationServiceImplTest {
     @Mock
     private UserManagementService userManagementService;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
     }

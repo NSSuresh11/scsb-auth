@@ -1,22 +1,22 @@
 package org.recap.UT.model;
 
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.recap.model.LoginValidator;
 import org.recap.model.UserForm;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@RunWith(MockitoJUnitRunner.Silent.class)
+@ExtendWith({SpringExtension.class})
 public class LoginValidatorTest {
 
     private LoginValidator loginValidator;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         loginValidator = new LoginValidator();
     }

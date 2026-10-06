@@ -1,29 +1,21 @@
 package org.recap.IT.config;
 
 
-import jakarta.validation.constraints.NotNull;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.recap.config.SwaggerConfig;
-import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
-import java.util.*;
-
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
-@Ignore
-@RunWith(MockitoJUnitRunner.Silent.class)
+
+@ExtendWith({SpringExtension.class})
 public class SwaggerConfigTest {
 
     @InjectMocks
@@ -35,7 +27,7 @@ public class SwaggerConfigTest {
     private InterceptorRegistry interceptorRegistry;
 
 
-    @Before
+    @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         registry = mock(ResourceHandlerRegistry.class);

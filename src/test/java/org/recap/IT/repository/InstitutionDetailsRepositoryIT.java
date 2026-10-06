@@ -1,13 +1,14 @@
 package org.recap.IT.repository;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.recap.IT.BaseTestCase;
 import org.recap.model.jpa.InstitutionEntity;
 import org.recap.repository.jpa.InstitutionDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 /**
  * Created by pvsubrah on 6/22/16.

@@ -2,7 +2,7 @@ package org.recap.IT.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.junit.Ignore;
+import org.junit.jupiter.api.Test;
 import org.recap.IT.BaseTestCase;
 import org.recap.model.jpa.RoleEntity;
 import org.recap.model.jpa.UsersEntity;
@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 /**
  * Created by dharmendrag on 17/1/17.
@@ -34,7 +35,7 @@ public class UserDetailsRepositoryIT extends BaseTestCase {
     @PersistenceContext
     EntityManager entityManager;
 
-    @Ignore
+    @Test
     public void createUser() {
         UsersEntity usersEntity = new UsersEntity();
         usersEntity.setLoginId("julius");

@@ -6,25 +6,25 @@ import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.subject.support.SubjectThreadState;
 import org.apache.shiro.util.ThreadContext;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.recap.controller.AuthorizationController;
 import org.recap.security.UserManagementService;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.mock;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith({SpringExtension.class})
 public class AuthorizationControllerTest {
 
     private AuthorizationController mockAuthorizationController;
     private Subject subject;
     private UserManagementService userManagementService;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         mockAuthorizationController = mock(AuthorizationController.class);
         userManagementService = mock(UserManagementService.class);

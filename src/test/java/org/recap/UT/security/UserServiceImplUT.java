@@ -1,6 +1,6 @@
 package org.recap.UT.security;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -19,7 +19,8 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 /**
  * Created by dharmendrag on 2/2/17.

@@ -2,10 +2,9 @@ package org.recap.IT;
 
 
 import org.apache.shiro.mgt.SecurityManager;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.recap.Main;
 import org.recap.config.ApacheShiroCustomConfig;
 import org.recap.repository.jpa.InstitutionDetailsRepository;
@@ -20,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +27,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.nio.charset.Charset;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith({SpringExtension.class})
 @SpringBootTest(classes = Main.class)
 @WebAppConfiguration
 @Transactional

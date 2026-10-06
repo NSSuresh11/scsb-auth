@@ -1,28 +1,29 @@
 package org.recap.UT.controller;
 
 import org.apache.shiro.subject.Subject;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.recap.IT.BaseTestCase;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.recap.UT.BaseTestCaseUT;
 import org.recap.controller.LoginController;
 import org.recap.security.AuthorizationServiceImpl;
 import org.recap.security.UserManagementService;
 import org.recap.util.HelperUtil;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
-public class LoginControllerTest extends BaseTestCase {
+@ExtendWith({SpringExtension.class, MockitoExtension.class})
+public class LoginControllerTest extends BaseTestCaseUT {
 
     @Mock
     private Subject subject;
@@ -39,7 +40,7 @@ public class LoginControllerTest extends BaseTestCase {
     @InjectMocks
     private LoginController loginController;
 
-    @Before
+    @BeforeEach
     public void setup() {
         // No need to initialize loginController here
     }

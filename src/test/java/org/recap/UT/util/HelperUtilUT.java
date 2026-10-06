@@ -1,6 +1,6 @@
 package org.recap.UT.util;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -9,8 +9,8 @@ import org.recap.model.jpa.InstitutionEntity;
 import org.recap.repository.jpa.InstitutionDetailsRepository;
 import org.recap.util.HelperUtil;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class HelperUtilUT extends BaseTestCaseUT {
 

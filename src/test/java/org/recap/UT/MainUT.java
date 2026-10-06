@@ -1,14 +1,14 @@
 package org.recap.UT;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.recap.Main;
 import org.springframework.boot.SpringApplication;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringRunner.class)
+@ExtendWith({SpringExtension.class})
 public class MainUT {
 
     @Test

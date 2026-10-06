@@ -2,7 +2,7 @@ package org.recap.UT.security;
 
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -19,8 +19,9 @@ import org.recap.security.UserManagementService;
 
 import java.util.*;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 
 public class UserManagementServiceUT extends BaseTestCaseUT {
 

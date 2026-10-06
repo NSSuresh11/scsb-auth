@@ -1,28 +1,30 @@
 package org.recap.UT.security;
 
-import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.*;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.recap.model.jpa.RoleEntity;
 import org.recap.model.jpa.UsersEntity;
 import org.recap.repository.jpa.PermissionsRepository;
 import org.recap.repository.jpa.UserDetailsRepository;
 import org.recap.security.UserManagementService;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 
 /**
  * @author Charan Raj C created on 03/10/24
  */
-@RunWith(MockitoJUnitRunner.Silent.class)
+@ExtendWith({SpringExtension.class})
 public class UserManagementServiceTest {
 
     @Mock
@@ -34,7 +36,7 @@ public class UserManagementServiceTest {
     @InjectMocks
     private UserManagementService userManagementService;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
     }

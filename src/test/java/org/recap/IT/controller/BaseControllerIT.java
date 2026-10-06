@@ -1,6 +1,6 @@
 package org.recap.IT.controller;
 
-import org.junit.Assert;
+
 import org.recap.IT.BaseTestCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -12,7 +12,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.Arrays;
 
 /**
  * Created by chenchulakshmig on 6/14/16.
